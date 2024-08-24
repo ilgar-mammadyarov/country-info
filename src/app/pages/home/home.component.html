@@ -1,0 +1,44 @@
+<div class="wrapper">
+  <mat-form-field class="search-field" appearance="outline">
+    <mat-label>Clearable input</mat-label>
+    <input matInput type="text" [formControl]="searchController" />
+    <button matPrefix mat-icon-button>
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+
+  @if (filteredCountries() && this.filter()) {
+    <mat-list role="list" class="country-list">
+      @for (item of filteredCountries(); track $index) {
+        <mat-list-item
+          role="listitem"
+          class="country-item"
+          [routerLink]="['../country', item.countryCode]"
+        >
+          {{ item.name }}
+        </mat-list-item>
+      }
+      @if (filteredCountries().length === 0) {
+        <h3>Not found!</h3>
+      }
+    </mat-list>
+  }
+
+  <div class="random-country-list">
+    @for (item of randomCountriesWithHolidays(); track $index) {
+      <mat-card class="random-country-item" appearance="outlined">
+        <mat-card-header>
+          <mat-card-title [routerLink]="['../country', item.countryCode]">
+            {{ item.countryName }}
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ item.holidayName }}</p>
+          <mat-chip-set>
+            <mat-chip>{{ item.holidayDate | date }}</mat-chip>
+          </mat-chip-set>
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
+</div>

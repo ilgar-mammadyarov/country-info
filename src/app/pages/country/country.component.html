@@ -1,0 +1,39 @@
+<div class="wrapper">
+  @if (countryInfo(); as countryInfo) {
+    <h2>{{ countryInfo.officialName }}</h2>
+  }
+
+  <div class="year-list">
+    <h4>Year filter</h4>
+    <mat-button-toggle-group
+      [hideSingleSelectionIndicator]="true"
+      [value]="selectedYear()">
+      @for (year of years; track $index) {
+        <mat-button-toggle [value]="year" (click)="setSelectedYear(year)">{{
+          year
+        }}</mat-button-toggle>
+      }
+    </mat-button-toggle-group>
+  </div>
+
+  <div class="random-country-list">
+    @for (item of holidays(); track $index) {
+      <mat-card class="random-country-item" appearance="outlined">
+        <mat-card-header>
+          <mat-card-title>
+            {{ item.name }}
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Local name: {{ item.localName }}</p>
+          <mat-chip-set>
+            <mat-chip>{{ item.date | date }}</mat-chip>
+            @for (type of item.types; track $index) {
+              <mat-chip>{{ type }}</mat-chip>
+            }
+          </mat-chip-set>
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
+</div>
