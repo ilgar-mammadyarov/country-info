@@ -1,4 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { CountryService } from './country.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -13,6 +18,7 @@ import { DatePipe } from '@angular/common';
   providers: [CountryService],
   templateUrl: './country.component.html',
   styleUrl: './country.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CountryComponent implements OnInit {
   readonly #countryService = inject(CountryService);
